@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MultiMail Generator Pro</title>
+    <title>MultiMail Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- VARIÁVEIS DE CORES (NOVO TEMA: CLEAN BLUE) --- */
+        /* --- TEMA DARK NEON GREEN --- */
         :root {
-            --primary-color: #2563eb;      /* Azul Royal */
-            --primary-hover: #1d4ed8;      /* Azul Escuro (ao passar o mouse) */
-            --bg-body: #f3f4f6;            /* Cinza muito claro (Fundo da página) */
-            --bg-card: #ffffff;            /* Branco (Cartão) */
-            --text-main: #1f2937;          /* Cinza Escuro (Texto Principal) */
-            --text-secondary: #6b7280;     /* Cinza Médio (Legendas) */
-            --border-color: #e5e7eb;       /* Cinza Claro (Bordas) */
-            --danger-color: #ef4444;       /* Vermelho (Para erros ou limpar) */
-            --success-color: #10b981;      /* Verde (Sucesso) */
+            --primary-color: #00e676;      /* Verde Neon (Destaque) */
+            --bg-color: #0d0d0d;           /* Preto Fundo */
+            --card-color: #1a1a1a;         /* Cinza Escuro (Cartão) */
+            --text-color: #ffffff;         /* Texto Branco */
+            --input-bg: #000000;           /* Fundo dos Inputs */
+            --border-color: #333333;       /* Bordas sutis */
+            --danger-color: #ff5252;       /* Vermelho para botão Sair/Limpar */
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
@@ -32,84 +30,74 @@
             padding: 20px;
         }
 
-        /* Container Principal */
+        /* O Cartão Principal */
         .card {
-            background-color: var(--bg-card);
+            background-color: var(--card-color);
             padding: 40px;
-            border-radius: 16px; /* Cantos mais arredondados */
+            border-radius: 12px;
             width: 100%;
-            max-width: 480px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* Sombra suave e elegante */
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.1); /* Brilho verde sutil */
             border: 1px solid var(--border-color);
             text-align: center;
         }
 
-        /* Cabeçalho */
+        /* Ícone e Títulos */
         .icon {
             font-size: 48px;
-            margin-bottom: 15px;
-            background: #dbeafe; /* Fundo azul claro no ícone */
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
         }
 
         h1 {
-            color: var(--text-main);
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
+            color: var(--primary-color);
+            margin: 5px 0;
+            font-size: 26px;
         }
 
         p.subtitle {
-            color: var(--text-secondary);
+            color: #888;
             font-size: 14px;
-            margin-top: 5px;
             margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
         }
 
         /* Área de Login */
         .user-area {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
         }
 
         .btn-login {
-            background-color: #fff;
-            color: var(--text-main);
-            border: 1px solid #d1d5db;
+            background-color: var(--primary-color);
+            color: #000; /* Texto preto no verde fica muito legível */
+            border: none;
             width: 100%;
             padding: 12px;
-            font-weight: 600;
-            border-radius: 8px;
+            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.2s;
+            transition: opacity 0.3s;
         }
 
         .btn-login:hover {
-            background-color: #f9fafb;
-            border-color: var(--primary-color);
+            opacity: 0.9;
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         /* Perfil Logado */
         .user-profile {
-            display: none; /* Escondido por padrão */
-            background-color: #eff6ff; /* Azulzinho muito claro */
-            padding: 12px;
-            border-radius: 10px;
+            display: none; 
+            background-color: #252525;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #bfdbfe;
         }
 
         .user-info {
@@ -120,185 +108,182 @@
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-color);
         }
 
         .user-name {
-            font-weight: 700;
+            font-weight: bold;
             font-size: 14px;
             color: var(--primary-color);
         }
 
         .user-email {
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: 11px;
+            color: #aaa;
         }
 
         .btn-logout {
-            background: white;
-            border: 1px solid #fab1b1;
-            color: var(--danger-color);
-            padding: 6px 12px;
-            border-radius: 6px;
+            background: transparent;
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
-            font-weight: 600;
+            transition: all 0.3s;
         }
-        
+
         .btn-logout:hover {
-            background-color: #fef2f2;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
         }
 
         /* Formulário */
         .form-section {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
             text-align: left;
+            border: 1px solid var(--border-color);
         }
 
         label {
             display: block;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 13px;
             margin-bottom: 8px;
             margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input {
             width: 100%;
-            padding: 14px;
-            background-color: #f9fafb;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-main);
-            font-size: 15px;
+            padding: 12px;
+            background-color: var(--input-bg);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
             box-sizing: border-box;
-            transition: border-color 0.2s;
+            font-family: monospace; /* Fonte estilo código */
         }
         
         input:focus {
             outline: none;
             border-color: var(--primary-color);
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 5px rgba(0, 230, 118, 0.3);
         }
 
         .helper-text {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 6px;
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
         }
 
-        /* Botões de Ação (Grid para ficarem lado a lado) */
+        /* Botões de Ação */
         .action-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+            grid-template-columns: 1fr 2fr; /* Botão Gerar maior que o Limpar */
             gap: 10px;
             margin-top: 25px;
         }
 
         .btn-generate {
             background-color: var(--primary-color);
-            color: white;
+            color: #000;
             border: none;
-            padding: 14px;
-            font-weight: 600;
-            border-radius: 8px;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 15px;
-            transition: background-color 0.2s;
+            transition: all 0.3s;
         }
 
         .btn-generate:hover {
-            background-color: var(--primary-hover);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
         }
 
-        /* Botão Limpar (Novo) */
         .btn-clear {
-            background-color: white;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            font-weight: 600;
-            border-radius: 8px;
+            background-color: transparent;
+            color: #888;
+            border: 1px solid #444;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 15px;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
         .btn-clear:hover {
-            background-color: #fef2f2;
+            border-color: var(--danger-color);
             color: var(--danger-color);
-            border-color: #fecaca;
+            background-color: rgba(255, 82, 82, 0.1);
         }
 
         /* Área de Resultados */
         #result-area {
-            margin-top: 25px;
+            margin-top: 20px;
             display: none;
-            background-color: #f8fafc;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
         }
 
         .result-header {
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .result-header label {
             margin: 0;
-            color: var(--primary-color);
+            color: var(--text-color);
+            font-size: 12px;
         }
 
         #btnCopy {
-            background: white;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
+            background: transparent;
+            border: 1px solid #555;
+            color: var(--primary-color);
             cursor: pointer;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 11px;
+            transition: all 0.3s;
         }
 
         #btnCopy:hover {
+            background-color: rgba(0, 230, 118, 0.1);
             border-color: var(--primary-color);
-            color: var(--primary-color);
         }
 
         textarea {
             width: 100%;
             height: 150px;
-            background-color: white;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            border-radius: 8px;
+            background-color: #000;
+            color: var(--primary-color); /* Texto verde estilo Matrix */
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 5px;
             box-sizing: border-box;
             resize: vertical;
-            font-family: monospace; /* Fonte tipo código para os emails */
+            font-family: monospace;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <div class="icon">📧</div>
+        <div class="icon">✉️</div>
         <h1>MultiMail Generator</h1>
-        <p class="subtitle">Ferramenta profissional de e-mails</p>
+        <p class="subtitle">Gerador de Gmails Profissional</p>
 
         <div class="user-area">
             <button id="btnLogin" class="btn-login">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="G">
-                Entrar com Google
+                <span style="font-size: 18px;">G</span> Entrar com Google
             </button>
 
             <div id="userProfile" class="user-profile">
@@ -319,18 +304,18 @@
             
             <label>Quantidade de aliases:</label>
             <input type="number" id="quantityInput" placeholder="5" min="1" max="100">
-            <div class="helper-text">Gera variações com "+1", "+2", etc.</div>
+            <div class="helper-text">Cria variações com "+1", "+2", etc.</div>
 
             <div class="action-buttons">
                 <button class="btn-clear" id="btnClear">🗑️ Limpar</button>
-                <button class="btn-generate" id="btnGenerate">⚡ Gerar</button>
+                <button class="btn-generate" id="btnGenerate">⚡ Gerar Gmails</button>
             </div>
         </div>
 
         <div id="result-area">
             <div class="result-header">
-                <label>Resultado:</label>
-                <button id="btnCopy">📋 Copiar</button>
+                <label>RESULTADO:</label>
+                <button id="btnCopy">📋 Copiar Lista</button>
             </div>
             <textarea id="resultList" readonly></textarea>
         </div>
@@ -341,7 +326,7 @@
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // TUAS CHAVES FIREBASE
+        // CONFIGURAÇÃO DO FIREBASE (Sua configuração original)
         const firebaseConfig = {
             apiKey: "AIzaSyDJqY0MzC2zF__B50ZeGzoeznlFWIqbJUA",
             authDomain: "gerador-8acb1.firebaseapp.com",
@@ -358,7 +343,7 @@
 
         let usuarioAtual = null;
 
-        // Elementos
+        // Elementos DOM
         const btnLogin = document.getElementById('btnLogin');
         const btnLogout = document.getElementById('btnLogout');
         const userProfile = document.getElementById('userProfile');
@@ -366,7 +351,6 @@
         const userName = document.getElementById('userName');
         const userEmail = document.getElementById('userEmail');
         
-        // Novos Elementos
         const btnGenerate = document.getElementById('btnGenerate');
         const btnClear = document.getElementById('btnClear');
         const btnCopy = document.getElementById('btnCopy');
@@ -375,7 +359,7 @@
         const quantityInput = document.getElementById('quantityInput');
         const resultList = document.getElementById('resultList');
 
-        // --- LOGIN ---
+        // --- AUTENTICAÇÃO ---
         btnLogin.addEventListener('click', () => {
             signInWithPopup(auth, provider).catch((error) => alert("Erro: " + error.message));
         });
@@ -394,12 +378,12 @@
                 userAvatar.src = user.photoURL;
                 if(emailInput.value === "") emailInput.value = user.email;
             } else {
-                btnLogin.style.display = 'flex'; // Flex para alinhar ícone e texto
+                btnLogin.style.display = 'flex';
                 userProfile.style.display = 'none';
             }
         });
 
-        // --- FUNÇÕES PRINCIPAIS ---
+        // --- FUNÇÕES ---
 
         // 1. GERAR E SALVAR
         btnGenerate.addEventListener('click', async () => {
@@ -426,11 +410,10 @@
             resultList.value = listaEmails;
             resultArea.style.display = 'block';
 
-            // Salvar no Firebase se logado
             if (usuarioAtual) {
                 const originalText = btnGenerate.innerHTML;
                 btnGenerate.innerHTML = "💾 Salvando...";
-                btnGenerate.disabled = true; // Evita duplo clique
+                btnGenerate.disabled = true;
 
                 try {
                     await addDoc(collection(db, "historico_emails"), {
@@ -444,7 +427,7 @@
                     btnGenerate.innerHTML = "✅ Salvo!";
                 } catch (e) {
                     console.error(e);
-                    btnGenerate.innerHTML = "⚠️ Erro ao salvar";
+                    btnGenerate.innerHTML = "⚠️ Erro";
                 }
 
                 setTimeout(() => {
@@ -454,14 +437,12 @@
             }
         });
 
-        // 2. LIMPAR TELA (NOVO)
+        // 2. LIMPAR TELA
         btnClear.addEventListener('click', () => {
-            // Limpa os inputs (mantém o email se o usuário quiser, mas vou limpar a qtde)
             quantityInput.value = "";
             resultList.value = "";
             resultArea.style.display = 'none';
             
-            // Feedback no botão
             const textoOriginal = btnClear.innerHTML;
             btnClear.innerHTML = "🧹 Limpo!";
             setTimeout(() => {
@@ -476,12 +457,12 @@
             navigator.clipboard.writeText(resultList.value).then(() => {
                 const original = btnCopy.innerHTML;
                 btnCopy.innerHTML = "✅ Copiado!";
-                btnCopy.style.borderColor = "var(--success-color)";
-                btnCopy.style.color = "var(--success-color)";
+                btnCopy.style.borderColor = "#00e676";
+                btnCopy.style.color = "#00e676";
                 setTimeout(() => {
                     btnCopy.innerHTML = original;
-                    btnCopy.style.borderColor = "var(--border-color)";
-                    btnCopy.style.color = "var(--text-main)";
+                    btnCopy.style.borderColor = "#555";
+                    btnCopy.style.color = "#00e676";
                 }, 2000);
             });
         });
