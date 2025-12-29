@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiMail Generator</title>
+    <style>
+        :root {
+            --primary-color: #ffc107; /* Amarelo */
+            --bg-color: #0d0d0d;      /* Fundo Preto */
+            --card-color: #1a1a1a;    /* Fundo do Cartão */
+            --text-color: #ffffff;    /* Texto Branco */
+            --input-bg: #000000;      /* Fundo do Input */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Container Principal (O Cartão) */
+        .card {
+            background-color: var(--card-color);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        /* Cabeçalho e Ícone */
+        .icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 10px 0 5px 0;
+        }
+
+        p.subtitle {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        /* Botão de Login (Decorativo por enquanto) */
+        .btn-login {
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: opacity 0.3s;
+        }
+
+        /* Área do Formulário */
+        .form-section {
+            background-color: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            border: 1px solid #333;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .description {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        /* Inputs */
+        input {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--input-bg);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .helper-text {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Botão Gerar */
+        .btn-generate {
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-generate:hover, .btn-login:hover {
+            opacity: 0.9;
+        }
+
+        /* Área de Resultados */
+        #result-area {
+            margin-top: 20px;
+            display: none; /* Escondido inicialmente */
+        }
+
+        /* Cabeçalho da área de resultados (Texto + Botão Copiar) */
+        .result-header {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .result-header label {
+            margin: 0; /* Remove margem extra do label */
+        }
+
+        /* Botão Copiar */
+        #btnCopy {
+            background: transparent;
+            border: 1px solid #555;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        #btnCopy:hover {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon">✉️</div>
+        
+        <h1>MultiMail Generator</h1>
+        <p class="subtitle">Gerador de Gmails</p>
+
+        <button class="btn-login" onclick="alert('O login com Firebase será implementado em breve!')">👤 Fazer Login</button>
+
+        <div class="form-section">
+            <div class="section-title">✏️ Criar Gmails</div>
+            <p class="description">Crie gmails ilimitados. Todos os e-mails chegam na sua caixa principal!</p>
+
+            <label>Seu e-mail do Gmail:</label>
+            <input type="email" id="emailInput" placeholder="seu.email@gmail.com">
+            <div class="helper-text">Exemplo: seu.email@gmail.com</div>
+
+            <label>Quantos gmails criar? (1-100):</label>
+            <input type="number" id="quantityInput" placeholder="5" min="1" max="100">
+            <div class="helper-text">Escolha quantos gmails você quer gerar (máximo 100)</div>
+
+            <button class="btn-generate" onclick="gerarGmails()">⚡ Gerar Gmails</button>
+        </div>
+
+        <div id="result-area">
+            <div class="result-header">
+                <label>Seus novos e-mails:</label>
+                <button id="btnCopy" onclick="copiarTexto()">📋 Copiar Lista</button>
+            </div>
+            <textarea id="resultList" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        function gerarGmails() {
+            // 1. Obter os valores dos inputs
+            const emailOriginal = document.getElementById('emailInput').value.trim();
+            let quantidade = parseInt(document.getElementById('quantityInput').value);
+
+            // 2. Validação simples
+            if (!emailOriginal.includes('@gmail.com')) {
+                alert('Por favor, insira um endereço @gmail.com válido.');
+                return;
+            }
+            if (!quantidade || quantidade < 1) {
+                quantidade = 1; // Mínimo padrão
+            }
+            if (quantidade > 1000) {
+                quantidade = 1000; // Limite de segurança
+            }
+
+            // 3. Separar o usuário do domínio
+            const partes = emailOriginal.split('@');
+            const usuario = partes[0];
+            const dominio = partes[1];
+
+            let listaEmails = "";
+
+            // 4. Loop para criar as variações
+            for (let i = 1; i <= quantidade; i++) {
+                const novoEmail = `${usuario}+${i}@${dominio}`;
+                listaEmails += novoEmail + "\n";
+            }
+
+            // 5. Mostrar o resultado
+            const areaResultado = document.getElementById('result-area');
+            const campoTexto = document.getElementById('resultList');
+            
+            campoTexto.value = listaEmails;
+            areaResultado.style.display = 'block'; // Torna a área visível
+        }
+
+        function copiarTexto() {
+            const texto = document.getElementById('resultList');
+            
+            // Seleciona o texto no campo
+            texto.select();
+            texto.setSelectionRange(0, 99999); // Essencial para funcionar em telemóveis
+
+            // API da Área de Transferência
+            navigator.clipboard.writeText(texto.value).then(() => {
+                // Feedback visual: muda o botão temporariamente
+                const btn = document.getElementById('btnCopy');
+                const textoOriginal = btn.innerHTML;
+                
+                btn.innerHTML = "✅ Copiado!";
+                btn.style.borderColor = "#4CAF50"; // Verde temporário
+                btn.style.color = "#4CAF50";
+
+                setTimeout(() => {
+                    btn.innerHTML = textoOriginal;
+                    btn.style.borderColor = "#555";
+                    btn.style.color = "#ffc107"; // Volta ao amarelo
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar: ', err);
+                alert('Não foi possível copiar automaticamente.');
+            });
+        }
+    </script>
+
+</body>
+</html>
