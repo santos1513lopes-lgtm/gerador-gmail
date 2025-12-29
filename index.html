@@ -6,11 +6,11 @@
     <title>MultiMail Generator</title>
     <style>
         :root {
-            --primary-color: #ffc107; /* Amarelo */
-            --bg-color: #0d0d0d;      /* Fundo Preto */
-            --card-color: #1a1a1a;    /* Fundo do Cartão */
-            --text-color: #ffffff;    /* Texto Branco */
-            --input-bg: #000000;      /* Fundo do Input */
+            --primary-color: #ffc107;
+            --bg-color: #0d0d0d;
+            --card-color: #1a1a1a;
+            --text-color: #ffffff;
+            --input-bg: #000000;
         }
 
         body {
@@ -24,7 +24,6 @@
             margin: 0;
         }
 
-        /* Container Principal (O Cartão) */
         .card {
             background-color: var(--card-color);
             padding: 40px;
@@ -36,7 +35,6 @@
             text-align: center;
         }
 
-        /* Cabeçalho e Ícone */
         .icon {
             font-size: 40px;
             color: var(--primary-color);
@@ -56,7 +54,11 @@
             padding-bottom: 20px;
         }
 
-        /* Botão de Login (Decorativo por enquanto) */
+        /* Área do Usuário (Login) */
+        .user-area {
+            margin-bottom: 20px;
+        }
+
         .btn-login {
             background-color: var(--primary-color);
             color: #000;
@@ -66,11 +68,61 @@
             font-weight: bold;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 20px;
             transition: opacity 0.3s;
+            display: block; /* Visível por padrão */
         }
 
-        /* Área do Formulário */
+        /* Perfil do Usuário (Escondido inicialmente) */
+        .user-profile {
+            display: none; 
+            background-color: #252525;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+
+        .user-email {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-logout:hover {
+            background-color: #333;
+        }
+
+        /* Restante do CSS igual ao anterior */
         .form-section {
             background-color: #252525;
             padding: 20px;
@@ -103,7 +155,6 @@
             margin-top: 15px;
         }
 
-        /* Inputs */
         input {
             width: 100%;
             padding: 12px;
@@ -125,7 +176,6 @@
             margin-top: 5px;
         }
 
-        /* Botão Gerar */
         .btn-generate {
             background-color: var(--primary-color);
             color: #000;
@@ -147,13 +197,11 @@
             opacity: 0.9;
         }
 
-        /* Área de Resultados */
         #result-area {
             margin-top: 20px;
-            display: none; /* Escondido inicialmente */
+            display: none;
         }
 
-        /* Cabeçalho da área de resultados (Texto + Botão Copiar) */
         .result-header {
             display: flex; 
             justify-content: space-between; 
@@ -161,11 +209,6 @@
             margin-bottom: 5px;
         }
 
-        .result-header label {
-            margin: 0; /* Remove margem extra do label */
-        }
-
-        /* Botão Copiar */
         #btnCopy {
             background: transparent;
             border: 1px solid #555;
@@ -175,11 +218,6 @@
             padding: 5px 10px;
             font-size: 12px;
             transition: all 0.3s;
-        }
-
-        #btnCopy:hover {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-color: var(--primary-color);
         }
 
         textarea {
@@ -200,11 +238,25 @@
 
     <div class="card">
         <div class="icon">✉️</div>
-        
         <h1>MultiMail Generator</h1>
         <p class="subtitle">Gerador de Gmails</p>
 
-        <button class="btn-login" onclick="alert('O login com Firebase será implementado em breve!')">👤 Fazer Login</button>
+        <div class="user-area">
+            <button id="btnLogin" class="btn-login">
+                <span style="margin-right: 5px;">G</span> Entrar com Google
+            </button>
+
+            <div id="userProfile" class="user-profile">
+                <div class="user-info">
+                    <img id="userAvatar" class="user-avatar" src="" alt="Foto">
+                    <div>
+                        <div id="userName" class="user-name">Usuário</div>
+                        <div id="userEmail" class="user-email">email@gmail.com</div>
+                    </div>
+                </div>
+                <button id="btnLogout" class="btn-logout">Sair</button>
+            </div>
+        </div>
 
         <div class="form-section">
             <div class="section-title">✏️ Criar Gmails</div>
@@ -218,82 +270,147 @@
             <input type="number" id="quantityInput" placeholder="5" min="1" max="100">
             <div class="helper-text">Escolha quantos gmails você quer gerar (máximo 100)</div>
 
-            <button class="btn-generate" onclick="gerarGmails()">⚡ Gerar Gmails</button>
+            <button class="btn-generate" id="btnGenerate">⚡ Gerar Gmails</button>
         </div>
 
         <div id="result-area">
             <div class="result-header">
                 <label>Seus novos e-mails:</label>
-                <button id="btnCopy" onclick="copiarTexto()">📋 Copiar Lista</button>
+                <button id="btnCopy">📋 Copiar Lista</button>
             </div>
             <textarea id="resultList" readonly></textarea>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        // 1. Importar as ferramentas do Firebase (versão Web)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 2. Configuração do TEU Projeto (Copiada do teu print)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJqY0MzC2zF__B50ZeGzoeznlFWIqbJUA",
+            authDomain: "gerador-8acb1.firebaseapp.com",
+            projectId: "gerador-8acb1",
+            storageBucket: "gerador-8acb1.firebasestorage.app",
+            messagingSenderId: "990760189878",
+            appId: "1:990760189878:web:623daf01f828273d274b17"
+        };
+
+        // 3. Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // 4. Elementos da Tela
+        const btnLogin = document.getElementById('btnLogin');
+        const btnLogout = document.getElementById('btnLogout');
+        const userProfile = document.getElementById('userProfile');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+
+        // 5. Função de Login
+        btnLogin.addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log("Login sucesso:", result.user);
+                }).catch((error) => {
+                    console.error("Erro login:", error);
+                    alert("Erro ao fazer login: " + error.message);
+                });
+        });
+
+        // 6. Função de Logout
+        btnLogout.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                console.log("Saiu da conta");
+            });
+        });
+
+        // 7. Monitorar: O usuário está logado ou não?
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuário LOGADO: Esconde botão login, mostra perfil
+                btnLogin.style.display = 'none';
+                userProfile.style.display = 'flex';
+                
+                // Preenche os dados
+                userName.textContent = user.displayName;
+                userEmail.textContent = user.email;
+                userAvatar.src = user.photoURL;
+
+                // (Opcional) Preenche o campo de e-mail automaticamente
+                const emailInput = document.getElementById('emailInput');
+                if(emailInput.value === "") {
+                    emailInput.value = user.email;
+                }
+
+            } else {
+                // Usuário DESLOGADO: Mostra botão login, esconde perfil
+                btnLogin.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        });
+
+        // --- LÓGICA DO GERADOR (Mantida e adaptada para Module) ---
+        
+        // Precisamos adicionar os eventos manualmente porque "module" não permite onclick no HTML
+        document.getElementById('btnGenerate').addEventListener('click', gerarGmails);
+        document.getElementById('btnCopy').addEventListener('click', copiarTexto);
+
         function gerarGmails() {
-            // 1. Obter os valores dos inputs
             const emailOriginal = document.getElementById('emailInput').value.trim();
             let quantidade = parseInt(document.getElementById('quantityInput').value);
 
-            // 2. Validação simples
             if (!emailOriginal.includes('@gmail.com')) {
                 alert('Por favor, insira um endereço @gmail.com válido.');
                 return;
             }
-            if (!quantidade || quantidade < 1) {
-                quantidade = 1; // Mínimo padrão
-            }
-            if (quantidade > 1000) {
-                quantidade = 1000; // Limite de segurança
-            }
+            if (!quantidade || quantidade < 1) quantidade = 1;
+            if (quantidade > 1000) quantidade = 1000;
 
-            // 3. Separar o usuário do domínio
             const partes = emailOriginal.split('@');
             const usuario = partes[0];
             const dominio = partes[1];
 
             let listaEmails = "";
 
-            // 4. Loop para criar as variações
             for (let i = 1; i <= quantidade; i++) {
                 const novoEmail = `${usuario}+${i}@${dominio}`;
                 listaEmails += novoEmail + "\n";
             }
 
-            // 5. Mostrar o resultado
             const areaResultado = document.getElementById('result-area');
             const campoTexto = document.getElementById('resultList');
             
             campoTexto.value = listaEmails;
-            areaResultado.style.display = 'block'; // Torna a área visível
+            areaResultado.style.display = 'block';
         }
 
         function copiarTexto() {
             const texto = document.getElementById('resultList');
-            
-            // Seleciona o texto no campo
             texto.select();
-            texto.setSelectionRange(0, 99999); // Essencial para funcionar em telemóveis
+            texto.setSelectionRange(0, 99999);
 
-            // API da Área de Transferência
             navigator.clipboard.writeText(texto.value).then(() => {
-                // Feedback visual: muda o botão temporariamente
                 const btn = document.getElementById('btnCopy');
                 const textoOriginal = btn.innerHTML;
                 
                 btn.innerHTML = "✅ Copiado!";
-                btn.style.borderColor = "#4CAF50"; // Verde temporário
+                btn.style.borderColor = "#4CAF50";
                 btn.style.color = "#4CAF50";
 
                 setTimeout(() => {
                     btn.innerHTML = textoOriginal;
                     btn.style.borderColor = "#555";
-                    btn.style.color = "#ffc107"; // Volta ao amarelo
+                    btn.style.color = "#ffc107";
                 }, 2000);
             }).catch(err => {
-                console.error('Erro ao copiar: ', err);
-                alert('Não foi possível copiar automaticamente.');
+                console.error(err);
+                alert('Erro ao copiar.');
             });
         }
     </script>
